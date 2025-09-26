@@ -57,16 +57,16 @@ impl Registers {
     }
     pub fn hld(&mut self) -> u16 {
         let res = self.hl();
-        self.sethl(res-1);
+        self.sethl(res.wrapping_sub(1));
         res
     }
     pub fn hli(&mut self) -> u16 {
         let res = self.hl();
-        self.sethl(res+1);
+        self.sethl(res.wrapping_add(1));
         res
     }
 
-    // set 
+    // sets the A6-bit AF register value
     pub fn setaf(&mut self, value: u16){
         self.a = (value >> 8) as u8;
         self.f = (value & 0x00F0) as u8;
